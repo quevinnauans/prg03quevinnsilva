@@ -2,7 +2,6 @@
 
 **Projeto:** Sistema de Controle de Produção e Estoque — SertãoFrut  
 **Autor:** Quevin Nauan Silva Gonzaga  
-**Disciplina:** PRG03 — PROGRAMAÇÃO ORIENTADA A OBJETOS
 
 
 ## 1. Introdução
