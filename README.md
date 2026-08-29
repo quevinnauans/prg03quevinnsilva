@@ -16,9 +16,7 @@ ATIVIDADES/
 # Documento de Especificação de Requisitos
 
 **Projeto:** Sistema de Controle de Produção e Estoque — SertãoFrut
-**Autor:** Quevin
-**Disciplina:** PRG03 — POO
-**Revisão:** 02
+**Autor:** Quevin Nauan Silva Gonzaga
 
 ---
 
