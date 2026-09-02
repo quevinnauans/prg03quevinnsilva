@@ -11,6 +11,6 @@ package br.com.ifba.prg03quevinnauansilva;
 public class Prg03quevinnauansilva {
 
     public static void main(String[] args) {
-        
+        System.out.println("Hello world!");
     }
 }
