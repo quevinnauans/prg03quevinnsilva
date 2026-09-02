@@ -1,16 +1,8 @@
 ## Estrutura do Projeto
 
-```
-ATIVIDADES/
-├── ATIVIDADE 01/
-│   ├── documento-requisitos-sertaofrut.md
-│   └── diagrama-casos-de-uso.svg
-├── ATIVIDADE 2 - LEARNGIT/
-│   └── print.png
-└── ATIVIDADE 03 - LEARNGIT/
-    └── print.png
-```
-
+- ATIVIDADES/
+- prg03quevinnauansilva/
+- README
 ---
 
 # Documento de Especificação de Requisitos - SertãoFrut
