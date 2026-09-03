@@ -4,6 +4,8 @@
  */
 package br.com.ifba.login.view;
 
+import br.com.ifba.usuario.view.TelaCadastroUsuario;
+
 /**
  *
  * @author Quevin Nauan
