@@ -52,25 +52,25 @@ public class TelaDeLogin extends javax.swing.JFrame {
         lblImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/ifba/login/imagens/imagemLogin.png"))); // NOI18N
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblTitulo.setText("Sistema de Controle de Produção");
+        lblTitulo.setText("<html><b>Sistema de Controle de Produção</b></html>");
 
         lblLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblLogin.setText("Login:");
+        lblLogin.setText("<html><b>Login:</b></html>");
 
         lblSenha.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblSenha.setText("Senha:");
+        lblSenha.setText("<html><b>Senha:</b></html>");
 
         txtLogin.addActionListener(this::txtLoginActionPerformed);
 
         btnEntrar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnEntrar.setText("Entrar");
+        btnEntrar.setText("<html><b>Entrar</b></html>");
         btnEntrar.addActionListener(this::btnEntrarActionPerformed);
 
         lblResultado1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblResultado1.setText("Res1");
+        lblResultado1.setText("<html><b>res1</b></html>");
 
         lblResultado2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblResultado2.setText("Res2");
+        lblResultado2.setText("<html><b>res2</b></html>");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Não tenho conta?");
@@ -116,9 +116,9 @@ public class TelaDeLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblResultado1)
+                .addComponent(lblResultado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblResultado2))
+                .addComponent(lblResultado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         txtSenha.addActionListener(this::txtSenhaActionPerformed);
@@ -140,7 +140,7 @@ public class TelaDeLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblLogin)
                             .addComponent(lblSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -164,10 +164,10 @@ public class TelaDeLogin extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLogin))
+                    .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSenha)
+                    .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
