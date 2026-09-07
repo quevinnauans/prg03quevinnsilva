@@ -5,6 +5,7 @@
 package br.com.ifba.usuario.view;
 
 import br.com.ifba.login.view.TelaDeLogin;
+import br.com.ifba.usuario.validar.ValidadorUsuario;
 import javax.swing.JOptionPane;
 
 /**
@@ -180,13 +181,14 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         String dataNasc = txtDataNasc.getText();
         String telefone = txtTelefone.getText();
         String email = txtEmail.getText();
+        String login = txtLogin.getText();
         String senha = new String(txtSenha.getPassword());
         String confSenha = new String(txtConfSenha.getPassword());
         
         // Verifica se ficou algum campo vazio
-            if(nome.isEmpty() || cpf.isEmpty() || dataNasc.isEmpty() ||
-                    telefone.isEmpty() || email.isEmpty() || senha.isEmpty() ||
-                    confSenha.isEmpty()){
+            if(confSenha.isEmpty() || nome.isEmpty() || cpf.isEmpty() || dataNasc.isEmpty() ||
+                    telefone.isEmpty() || email.isEmpty() || login.isEmpty() ||
+                    senha.isEmpty()){
                 
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Erro",
                         JOptionPane.ERROR_MESSAGE);
@@ -195,6 +197,10 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             else if(!senha.equals(confSenha)){
                 JOptionPane.showMessageDialog(this, "As senhas não coincidem.", "Erro", 
                         JOptionPane.ERROR_MESSAGE);
+            }
+            else if(ValidadorUsuario.contemPalavraProibida(login)){
+                JOptionPane.showMessageDialog(this, "Login contém palavra proibida.", 
+                        "Erro", JOptionPane.ERROR_MESSAGE);
             }
             // Ocorreu de forma correta
             else{
