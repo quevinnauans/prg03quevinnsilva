@@ -5,6 +5,7 @@
 package br.com.ifba.usuario.view;
 
 import br.com.ifba.login.view.TelaDeLogin;
+import br.com.ifba.usuario.entity.Usuario;
 import br.com.ifba.usuario.validar.ValidadorUsuario;
 import javax.swing.JOptionPane;
 
@@ -204,6 +205,19 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
             // Ocorreu de forma correta
             else{
+                // Instancia o objeto de dominio
+                Usuario usuario = new Usuario();
+                
+                // Preenche cada atributo
+                usuario.nome = nome;
+                usuario.cpf = cpf;
+                usuario.genero = (String) cobGenero.getSelectedItem();
+                usuario.dataNascimento = dataNasc;
+                usuario.telefone = telefone;
+                usuario.email = email;
+                usuario.login = login;
+                usuario.senha = senha;
+                
                 JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
             }
     }//GEN-LAST:event_btnCadastrarActionPerformed
