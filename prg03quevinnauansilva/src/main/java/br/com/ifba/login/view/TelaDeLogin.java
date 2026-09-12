@@ -4,6 +4,7 @@
  */
 package br.com.ifba.login.view;
 
+import br.com.ifba.usuario.entity.Usuario;
 import br.com.ifba.usuario.view.TelaCadastroUsuario;
 
 /**
@@ -187,6 +188,11 @@ public class TelaDeLogin extends javax.swing.JFrame {
         // Pega os dados informados pelo o usuário
         String loginInformado = txtLogin.getText();
         String senhaInformada = new String(txtSenha.getPassword());
+        
+        // Instancia o objeto de dominio
+        Usuario usuario = new Usuario();
+        usuario.login = loginInformado;
+        usuario.senha = senhaInformada;
         
         // Mostra o resultado das informações
         lblResultado1.setText("Login informado: " + loginInformado);
