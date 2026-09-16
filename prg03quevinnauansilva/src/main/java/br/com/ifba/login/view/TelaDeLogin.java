@@ -191,12 +191,12 @@ public class TelaDeLogin extends javax.swing.JFrame {
         
         // Instancia o objeto de dominio
         Usuario usuario = new Usuario();
-        usuario.login = loginInformado;
-        usuario.senha = senhaInformada;
+        usuario.setLogin(loginInformado);
+        usuario.setSenha(senhaInformada);
         
         // Mostra o resultado das informações
-        lblResultado1.setText("Login informado: " + loginInformado);
-        lblResultado2.setText("Senha informada: " + senhaInformada);
+        lblResultado1.setText("Login informado: " + usuario.getLogin());
+        lblResultado2.setText("Senha informada: " + usuario.getSenha());
         
         // Exibe o label na tela
         lblResultado1.setVisible(true);

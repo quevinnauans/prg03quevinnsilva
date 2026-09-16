@@ -205,20 +205,18 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
             // Ocorreu de forma correta
             else{
-                // Instancia o objeto de dominio
-                Usuario usuario = new Usuario();
+                // Instancia o construtor com parametros
+                Usuario usuario = new Usuario(nome, cpf, login, senha);
                 
-                // Preenche cada atributo
-                usuario.nome = nome;
-                usuario.cpf = cpf;
-                usuario.genero = (String) cobGenero.getSelectedItem();
-                usuario.dataNascimento = dataNasc;
-                usuario.telefone = telefone;
-                usuario.email = email;
-                usuario.login = login;
-                usuario.senha = senha;
+                // Preenche os outros atributos
+               
+                usuario.setGenero((String) cobGenero.getSelectedItem());
+                usuario.setDataNascimento(dataNasc);
+                usuario.setTelefone(telefone);
+                usuario.setEmail(email);
                 
-                JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
+                // Usando o getter para exibir
+                JOptionPane.showMessageDialog(this, "Usuário " + usuario.getNome() + " cadastrado com sucesso!");
             }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
