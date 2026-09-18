@@ -6,6 +6,7 @@ package br.com.ifba.login.view;
 
 import br.com.ifba.usuario.entity.Usuario;
 import br.com.ifba.usuario.view.TelaCadastroUsuario;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,9 +22,6 @@ public class TelaDeLogin extends javax.swing.JFrame {
     public TelaDeLogin() {
         initComponents();
         
-        // Oculta o label quando abre a janela
-        lblResultado1.setVisible(false);
-        lblResultado2.setVisible(false);
     }
 
     /**
@@ -42,8 +40,6 @@ public class TelaDeLogin extends javax.swing.JFrame {
         txtLogin = new javax.swing.JTextField();
         btnEntrar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        lblResultado1 = new javax.swing.JLabel();
-        lblResultado2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lblLink = new javax.swing.JLabel();
         txtSenha = new javax.swing.JPasswordField();
@@ -67,12 +63,6 @@ public class TelaDeLogin extends javax.swing.JFrame {
         btnEntrar.setText("<html><b>Entrar</b></html>");
         btnEntrar.addActionListener(this::btnEntrarActionPerformed);
 
-        lblResultado1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblResultado1.setText("<html><b>res1</b></html>");
-
-        lblResultado2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblResultado2.setText("<html><b>res2</b></html>");
-
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Não tenho conta?");
 
@@ -90,20 +80,9 @@ public class TelaDeLogin extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblResultado1, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addComponent(lblResultado2, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(119, 119, 119)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 28, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGap(119, 119, 119)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(147, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(lblLink, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -116,10 +95,7 @@ public class TelaDeLogin extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblResultado1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblResultado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64))
         );
 
         txtSenha.addActionListener(this::txtSenhaActionPerformed);
@@ -191,16 +167,17 @@ public class TelaDeLogin extends javax.swing.JFrame {
         
         // Instancia o objeto de dominio
         Usuario usuario = new Usuario();
-        usuario.setLogin(loginInformado);
-        usuario.setSenha(senhaInformada);
+        usuario.setLogin("quevinsilva");
+        usuario.setSenha("SENHA");
         
-        // Mostra o resultado das informações
-        lblResultado1.setText("Login informado: " + usuario.getLogin());
-        lblResultado2.setText("Senha informada: " + usuario.getSenha());
+        // Verifica se o login e senha estão corretos para permitir o acesso
+        if(usuario.autenticar(loginInformado, senhaInformada)){
+            JOptionPane.showMessageDialog(this, "Acesso permitido!");
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Acesso negado. Login ou Senha incorretos");
+        }
         
-        // Exibe o label na tela
-        lblResultado1.setVisible(true);
-        lblResultado2.setVisible(true);
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
@@ -246,8 +223,6 @@ public class TelaDeLogin extends javax.swing.JFrame {
     private javax.swing.JLabel lblImagem;
     private javax.swing.JLabel lblLink;
     private javax.swing.JLabel lblLogin;
-    private javax.swing.JLabel lblResultado1;
-    private javax.swing.JLabel lblResultado2;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextField txtLogin;

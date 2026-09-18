@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package br.com.ifba.usuario.entity;
+import br.com.ifba.usuario.interfaces.Autenticavel;
 
-public class Usuario {
+public class Usuario implements Autenticavel {
     // Definindo atributos
     
     private String nome;
@@ -94,5 +95,9 @@ public class Usuario {
         this.senha = senha;
     }
         
-    
+    // método autenticar
+        @Override
+        public boolean autenticar(String login, String senha){
+            return this.login.equals(login) && this.senha.equals(senha);
+        }
 }
