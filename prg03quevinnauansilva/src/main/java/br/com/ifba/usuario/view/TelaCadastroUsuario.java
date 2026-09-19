@@ -187,9 +187,8 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         String confSenha = new String(txtConfSenha.getPassword());
         
         // Verifica se ficou algum campo vazio
-            if(confSenha.isEmpty() || nome.isEmpty() || cpf.isEmpty() || dataNasc.isEmpty() ||
-                    telefone.isEmpty() || email.isEmpty() || login.isEmpty() ||
-                    senha.isEmpty()){
+            if(!ValidadorUsuario.camposPreenchidos(nome, cpf, dataNasc, telefone, email,
+                    login, senha, confSenha)){
                 
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Erro",
                         JOptionPane.ERROR_MESSAGE);
@@ -197,6 +196,13 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             // Verifica se as senhas informadas nos campos coincidem
             else if(!senha.equals(confSenha)){
                 JOptionPane.showMessageDialog(this, "As senhas não coincidem.", "Erro", 
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!ValidadorUsuario.cpfValido(cpf)){
+                JOptionPane.showMessageDialog(this, "CPF inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+            else if(!ValidadorUsuario.senhaForte(senha)){
+                JOptionPane.showMessageDialog(this, "A senha deve conter pelo menos 8 caracteres.", "Erro",
                         JOptionPane.ERROR_MESSAGE);
             }
             else if(ValidadorUsuario.contemPalavraProibida(login)){
