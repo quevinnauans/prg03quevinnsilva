@@ -4,7 +4,7 @@ package br.com.ifba.sertaofrut.entity;
 public class Producao {
     private String data;
     private String fruta;
-    private double quant_produzida;
+    private int quant_produzida;
     private Produto produto; // objeto como atributo
     private StatusProducao status;
     
@@ -13,7 +13,7 @@ public class Producao {
         this.status = StatusProducao.EM_ANDAMENTO;
     }
     
-    public Producao(String data, String fruta, double quant_produzida, Produto produto){
+    public Producao(String data, String fruta, int quant_produzida, Produto produto){
         this.data = data;
         this.fruta = fruta;
         this.quant_produzida = quant_produzida;
@@ -41,7 +41,7 @@ public class Producao {
         return quant_produzida;
     }
 
-    public void setQuant_produzida(double quant_produzida) {
+    public void setQuant_produzida(int quant_produzida) {
         this.quant_produzida = quant_produzida;
     }
 
