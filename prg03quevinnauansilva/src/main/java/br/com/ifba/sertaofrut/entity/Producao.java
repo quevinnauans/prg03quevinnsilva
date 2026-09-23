@@ -37,7 +37,7 @@ public class Producao {
         this.fruta = fruta;
     }
 
-    public double getQuant_produzida() {
+    public int getQuant_produzida() {
         return quant_produzida;
     }
 
