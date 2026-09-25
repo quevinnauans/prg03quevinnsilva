@@ -8,7 +8,7 @@ public class ProdutoTest {
     @Test
     public void adicionaMovimentacaoDeveAumentarTamanhoDaLista() {
         Produto produto = new Produto(1, "Polpa de Manga", 1.30);
-        produto.adicionaMovimentacao(new MovimentacaoEstoque("01/09/2026", 10, TipoMovimentacao.ENTRADA));
+        produto.adicionaMovimentacao(new EntradaEstoque("01/09/2026", 10));
         assertEquals(1, produto.getMovimentacoes().size());
     }
 }

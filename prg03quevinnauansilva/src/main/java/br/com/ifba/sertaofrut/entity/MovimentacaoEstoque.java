@@ -1,20 +1,17 @@
 
 package br.com.ifba.sertaofrut.entity;
 
-// Classe Movimentação de estoque
-public class MovimentacaoEstoque {
+// Classe abstrata: define o que toda a movimentação de estoque
+// tem em comum
+public abstract class MovimentacaoEstoque {
     // Atributos
     private String data;
     private int quantidade;
-    private TipoMovimentacao tipo;
     
-    public MovimentacaoEstoque(){
-        
-    }
-    public MovimentacaoEstoque(String data, int quantidade, TipoMovimentacao tipo){
+    public MovimentacaoEstoque(String data, int quantidade){
         this.data = data;
         this.quantidade = quantidade;
-        this.tipo = tipo;
+        
     }
 
     // getters e setters
@@ -35,12 +32,10 @@ public class MovimentacaoEstoque {
         this.quantidade = quantidade;
     }
 
-    public TipoMovimentacao getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoMovimentacao tipo) {
-        this.tipo = tipo;
-    }
+    // cada subclasse decide como aplica a movimentação no estoque
+    public abstract int aplicarNoEstoque(int estoqueAtual);
+    
+    // cada subclasse devolve o seu proprio tipo
+    public abstract TipoMovimentacao getTipo();
     
 }
