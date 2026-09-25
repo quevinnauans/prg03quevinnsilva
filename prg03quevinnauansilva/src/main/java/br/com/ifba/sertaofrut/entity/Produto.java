@@ -57,4 +57,6 @@ public class Produto {
         public List<MovimentacaoEstoque> getMovimentacoes(){
             return Collections.unmodifiableList(movimentacoes);
         }
+
+    
 }
