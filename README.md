@@ -5,6 +5,11 @@
 - README
 ---
 
+## Decisões do Projeto
+## Sobrecarga do construtor Usuario
+
+O construtor vazio `Usuario()` existe para os casos em que os dados são preenchidos aos poucos, como no formulário da Tela de Cadastro, onde cada campo é atribuído separadamente após a criação do objeto. Já o construtor `Usuario(nome, cpf, login, senha)` existe para criar o objeto já com os dados essenciais completos de uma vez, útil por exemplo em testes automatizados, evitando o risco de esquecer de preencher um campo obrigatório.
+
 # Documento de Especificação de Requisitos - SertãoFrut
 
 **Projeto:** Sistema de Controle de Produção e Estoque — SertãoFrut  
