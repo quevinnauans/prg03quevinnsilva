@@ -1,30 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package br.com.ifba.usuario.validar;
 
-/**
- *
- * @author Quevin Nauan
- */
+import java.util.Locale;
+
 public class ValidadorUsuario {
     
     // Verifica se o texto que foi informado contem alguma palavra proibida
     public static boolean contemPalavraProibida(String text){
-        //Palavras proibidas
-        String[] palavras_proibida = {"admin", "teste", "root", "senha123"};
-        
-        // Percorre o array verificando o texto
-        for(String palavra : palavras_proibida){
-            if(text.contains(palavra)){
-                return true;
-            }
+    // Palavras proibidas
+    String[] palavras_proibida = {"admin", "teste", "root", "senha123"};
+
+    // Deixa o texto em minúsculo para a comparação
+    String textoNormalizado = text.toLowerCase(Locale.ROOT);
+
+    // Percorre o array verificando o texto
+    for(String palavra : palavras_proibida){
+        if(textoNormalizado.contains(palavra)){
+            return true;
         }
-        return false;
     }
-    // Verifica se o CPF tem o formato válido
-    public static boolean cpfValido(String cpf){
+    return false;
+}
+    // Verifica se o CPF tem a quantidade de digitos correta
+    public static boolean cpfContemOnzeDigitos(String cpf){
         if(cpf == null){
             return false;
         }

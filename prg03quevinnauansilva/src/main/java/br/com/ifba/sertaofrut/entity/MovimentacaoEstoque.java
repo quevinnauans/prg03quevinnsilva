@@ -9,6 +9,10 @@ public abstract class MovimentacaoEstoque {
     private int quantidade;
     
     public MovimentacaoEstoque(String data, int quantidade){
+        // Impede que a movimentação seja criada com quantidade invalida
+        if(quantidade <= 0){
+            throw new IllegalArgumentException("A quantidade informada é inválida!");
+        }
         this.data = data;
         this.quantidade = quantidade;
         
@@ -29,6 +33,10 @@ public abstract class MovimentacaoEstoque {
     }
 
     public void setQuantidade(int quantidade) {
+        // impede que a quantidade seja alterada para valores invalidos
+        if(quantidade <= 0){
+            throw new IllegalArgumentException("Quantidade inválida!");
+        }
         this.quantidade = quantidade;
     }
 

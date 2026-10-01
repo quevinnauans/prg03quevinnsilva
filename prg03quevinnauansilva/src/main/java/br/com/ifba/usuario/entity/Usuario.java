@@ -87,9 +87,7 @@ public class Usuario implements Autenticavel {
         this.login = login;
     }
 
-    public String getSenha() {
-        return senha;
-    }
+    // o getSenha foi removido por segurança, pois não era utilizado
 
     public void setSenha(String senha) {
         this.senha = senha;
