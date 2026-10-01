@@ -11,22 +11,22 @@ public class ValidadorUsuarioTest {
 
     @Test
     public void cpfValidoComCpfCorretoDeveRetornarTrue() {
-        assertTrue(ValidadorUsuario.cpfValido("12345678900"));
+        assertTrue(ValidadorUsuario.cpfContemOnzeDigitos("12345678900"));
     }
 
     @Test
     public void cpfValidoComCpfVazioDeveRetornarFalse() {
-        assertFalse(ValidadorUsuario.cpfValido(""));
+        assertFalse(ValidadorUsuario.cpfContemOnzeDigitos(""));
     }
 
     @Test
     public void cpfValidoComLetrasDeveRetornarFalse() {
-        assertFalse(ValidadorUsuario.cpfValido("abcdefghijk"));
+        assertFalse(ValidadorUsuario.cpfContemOnzeDigitos("abcdefghijk"));
     }
 
     @Test
     public void cpfValidoComCpfNuloDeveRetornarFalse() {
-        assertFalse(ValidadorUsuario.cpfValido(null));
+        assertFalse(ValidadorUsuario.cpfContemOnzeDigitos(null));
     }
 
     @Test

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package br.com.ifba.usuario.view;
 
 import br.com.ifba.login.view.TelaDeLogin;
@@ -9,10 +6,6 @@ import br.com.ifba.usuario.entity.Usuario;
 import br.com.ifba.usuario.validar.ValidadorUsuario;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Quevin Nauan
- */
 public class TelaCadastroUsuario extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName());
@@ -198,7 +191,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "As senhas não coincidem.", "Erro", 
                         JOptionPane.ERROR_MESSAGE);
             }
-            else if(!ValidadorUsuario.cpfValido(cpf)){
+            else if(!ValidadorUsuario.cpfContemOnzeDigitos(cpf)){
                 JOptionPane.showMessageDialog(this, "CPF inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
             else if(!ValidadorUsuario.senhaForte(senha)){
