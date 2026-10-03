@@ -10,6 +10,10 @@
 
 O construtor vazio `Usuario()` existe para os casos em que os dados são preenchidos aos poucos, como no formulário da Tela de Cadastro, onde cada campo é atribuído separadamente após a criação do objeto. Já o construtor `Usuario(nome, cpf, login, senha)` existe para criar o objeto já com os dados essenciais completos de uma vez, útil por exemplo em testes automatizados, evitando o risco de esquecer de preencher um campo obrigatório.
 
+## Busca por login: List vs Map
+
+Com 10 usuários, a busca pela List (percorrendo de um por um) e pelo Map (consulta direta) são praticamente instantâneas, sem diferença perceptível. Já com 10 mil usuários, a busca pela List fica visivelmente mais lenta (precisa checar, em média, metade da lista a cada busca), enquanto o Map continua instantâneo, porque ele acessa o usuário direto pela chave, sem precisar percorrer nada.
+
 # Documento de Especificação de Requisitos - SertãoFrut
 
 **Projeto:** Sistema de Controle de Produção e Estoque — SertãoFrut  
