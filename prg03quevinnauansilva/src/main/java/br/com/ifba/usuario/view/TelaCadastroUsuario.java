@@ -3,12 +3,14 @@ package br.com.ifba.usuario.view;
 
 import br.com.ifba.login.view.TelaDeLogin;
 import br.com.ifba.usuario.entity.Usuario;
+import br.com.ifba.usuario.repositorio.RepositorioUsuarioEmMemoria;
 import br.com.ifba.usuario.validar.ValidadorUsuario;
 import javax.swing.JOptionPane;
 
 public class TelaCadastroUsuario extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(TelaCadastroUsuario.class.getName());
+    private final RepositorioUsuarioEmMemoria repositorio = new RepositorioUsuarioEmMemoria();
 
     /**
      * Creates new form TelaCadastroUsuario
@@ -204,19 +206,23 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             }
             // Ocorreu de forma correta
             else{
-                // Instancia o construtor com parametros
-                Usuario usuario = new Usuario(nome, cpf, login, senha);
-                
-                // Preenche os outros atributos
-               
-                usuario.setGenero((String) cobGenero.getSelectedItem());
-                usuario.setDataNascimento(dataNasc);
-                usuario.setTelefone(telefone);
-                usuario.setEmail(email);
-                
-                // Usando o getter para exibir
-                JOptionPane.showMessageDialog(this, "Usuário " + usuario.getNome() + " cadastrado com sucesso!");
-            }
+            // Instancia o construtor com parametros
+            Usuario usuario = new Usuario(nome, cpf, login, senha);
+    
+            // Preenche os outros atributos
+            usuario.setGenero((String) cobGenero.getSelectedItem());
+            usuario.setDataNascimento(dataNasc);
+            usuario.setTelefone(telefone);
+            usuario.setEmail(email);
+    
+            // Tenta cadastrar no repositorio - pode falhar se o login ja existir
+            try {
+            repositorio.cadastrar(usuario);
+            JOptionPane.showMessageDialog(this, "Usuário " + usuario.getNome() + " cadastrado com sucesso!");
+            } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
