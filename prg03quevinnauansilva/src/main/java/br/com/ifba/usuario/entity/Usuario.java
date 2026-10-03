@@ -98,4 +98,26 @@ public class Usuario implements Autenticavel {
         public boolean autenticar(String login, String senha){
             return this.login.equals(login) && this.senha.equals(senha);
         }
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj){
+                return true;
+            }
+            if (obj == null || getClass() != obj.getClass()){
+                return false;
+            }
+            Usuario outro = (Usuario) obj;
+            // dois usuarios sao iguais se tiverem o mesmo login,
+            // pois o login é o identificador unico do usuario no sistema
+            return login != null && login.equals(outro.login);
+    }
+        @Override
+        public int hashCode() {
+            if (login != null) {
+            return login.hashCode();
+        }
+
+        return 0;
+    }
+        
 }
