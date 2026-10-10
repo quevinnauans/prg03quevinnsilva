@@ -215,13 +215,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
             usuario.setTelefone(telefone);
             usuario.setEmail(email);
     
-            // Tenta cadastrar no repositorio - pode falhar se o login ja existir
-            try {
+            // Tenta cadastrar no repositorio
             repositorio.cadastrar(usuario);
-            JOptionPane.showMessageDialog(this, "Usuário " + usuario.getNome() + " cadastrado com sucesso!");
-            } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-        }
+            JOptionPane.showMessageDialog(this, "Usuario " + usuario.getNome());
     }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

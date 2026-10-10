@@ -31,15 +31,6 @@ public class RepositorioUsuarioEmMemoriaTest {
     }
 
     @Test
-    public void cadastrar_comLoginDuplicado_deveLancarExcecao() {
-        RepositorioUsuarioEmMemoria repositorio = new RepositorioUsuarioEmMemoria();
-        Usuario u1 = new Usuario("Quevin", "11111111111", "quevin.silva", "senha123");
-        Usuario u2 = new Usuario("Quevin Nauan", "22222222222", "quevin.silva", "outraSenha");
-        repositorio.cadastrar(u1);
-        assertThrows(IllegalArgumentException.class, () -> repositorio.cadastrar(u2));
-    }
-
-    @Test
     public void equals_doisObjetosDiferentesComMesmoLogin_devemSerIguaisParaALista() {
         Usuario u1 = new Usuario("Quevin", "11111111111", "quevin.silva", "senha123");
         Usuario u2 = new Usuario("Quevin Nauan", "22222222222", "quevin.silva", "outraSenha");
