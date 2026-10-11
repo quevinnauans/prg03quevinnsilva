@@ -1,2 +1,4 @@
 /prg03quevinnauansilva/target/
 /prg03quevinnauansilva/nbproject/
+target/
+prg03quevinnauansilva/src/main/resources/META-INF/persistence.xml
