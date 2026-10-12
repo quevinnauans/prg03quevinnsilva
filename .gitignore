@@ -1,2 +1,8 @@
+# Arquivos gerados pelo Maven
 /prg03quevinnauansilva/target/
+
+# Configurações do projeto NetBeans
 /prg03quevinnauansilva/nbproject/
+
+# Arquivo de configuração com credenciais locais
+/prg03quevinnauansilva/src/main/resources/META-INF/persistence.xml
