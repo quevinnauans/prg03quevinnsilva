@@ -4,6 +4,12 @@
  */
 package br.com.ifba.sertaofrut.view;
 
+import br.com.ifba.sertaofrut.entity.Produto;
+import br.com.ifba.sertaofrut.repository.ProdutoRepository;
+import br.com.ifba.usuario.validar.ValidadorUsuario;
+import jakarta.persistence.PersistenceException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Quevin Nauan
@@ -15,8 +21,17 @@ public class ProdutoCadastro extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoCadastro
      */
+    
+    private ProdutoListar telaListar;
+    private final ProdutoRepository repositorio = new ProdutoRepository();
+    
     public ProdutoCadastro() {
         initComponents();
+    }
+    
+    public ProdutoCadastro(ProdutoListar telaListar){
+        this();
+        this.telaListar = telaListar;
     }
 
     /**
@@ -60,6 +75,7 @@ public class ProdutoCadastro extends javax.swing.JFrame {
         bntSalvar.setBackground(new java.awt.Color(0, 153, 51));
         bntSalvar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bntSalvar.setText("Salvar");
+        bntSalvar.addActionListener(this::bntSalvarActionPerformed);
 
         btnCancelar.setBackground(new java.awt.Color(153, 153, 153));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -127,6 +143,43 @@ public class ProdutoCadastro extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
+        // obtei o nome digitado
+        String nome = txtNome.getText().trim();
+        // obtei o preço digitado
+        String precoTexto = txtPreco.getText().trim().replace(",", ".");
+        
+        // verifica se todos os campos obrigatórios foram preenchidos
+        if(!ValidadorUsuario.camposPreenchidos(nome, precoTexto)){
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try{
+            // converte o preço informado para double
+            double preco = Double.parseDouble(precoTexto);
+            // objeto produto com o próximo código disponivel
+             Produto produto = new Produto(repositorio.proximoCodigo(), nome, preco);
+                repositorio.cadastrar(produto);
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+            
+            // verifica se a tela de listagem foi informada e atualiza a tabela
+            if(telaListar != null){
+                telaListar.carregarTabela();
+            }
+            dispose();
+            // trata erros quando o preço não é um número valido
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Preço inválido.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            // trata erros relacionados a persistencia dos dados no banco
+        } catch(PersistenceException e){
+            JOptionPane.showMessageDialog(this, "Não foi possível cadastrar: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_bntSalvarActionPerformed
 
     /**
      * @param args the command line arguments

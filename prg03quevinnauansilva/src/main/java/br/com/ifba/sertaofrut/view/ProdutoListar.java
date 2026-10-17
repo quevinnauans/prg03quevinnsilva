@@ -185,10 +185,12 @@ public class ProdutoListar extends javax.swing.JFrame {
             Produto selecionado = produtosExibidos.get(linha);
             Produto atual = repositorio.buscarPorId(selecionado.getId());
             new ProdutoEditar(this, atual).setVisible(true);
+            
         } catch(ProdutoNaoEncontradoException e){
             JOptionPane.showMessageDialog(this, e.getMessage(),
                     "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
             carregarTabela();
+            
         } catch (PersistenceException e){
             JOptionPane.showMessageDialog(this, "Erro ao acessar o banco: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
