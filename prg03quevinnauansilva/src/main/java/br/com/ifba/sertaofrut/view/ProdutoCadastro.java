@@ -29,6 +29,7 @@ public class ProdutoCadastro extends javax.swing.JFrame {
         initComponents();
     }
     
+    // construtor que recebe a tela de listagem
     public ProdutoCadastro(ProdutoListar telaListar){
         this();
         this.telaListar = telaListar;
