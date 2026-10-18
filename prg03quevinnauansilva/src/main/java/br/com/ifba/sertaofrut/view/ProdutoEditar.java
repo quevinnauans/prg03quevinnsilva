@@ -4,6 +4,12 @@
  */
 package br.com.ifba.sertaofrut.view;
 
+import br.com.ifba.sertaofrut.entity.Produto;
+import br.com.ifba.sertaofrut.repository.ProdutoRepository;
+import br.com.ifba.usuario.validar.ValidadorUsuario;
+import jakarta.persistence.PersistenceException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Quevin Nauan
@@ -15,8 +21,23 @@ public class ProdutoEditar extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoEditar
      */
+    
+    private ProdutoListar telaListar;
+    private Produto produto;
+    private final ProdutoRepository repositorio = new ProdutoRepository();
+    
     public ProdutoEditar() {
         initComponents();
+    }
+    
+    // Construtor que recebe a tela de listagem e o produto que vai ser editado
+    public ProdutoEditar(ProdutoListar telaListar, Produto produto){
+        this();
+        this.telaListar = telaListar;
+        this.produto = produto;
+        txtCodigo.setText(String.valueOf(produto.getCodigo()));
+        txtNome.setText(produto.getNome());
+        txtPreco.setText(String.valueOf(produto.getPreco()));
     }
 
     /**
@@ -39,7 +60,7 @@ public class ProdutoEditar extends javax.swing.JFrame {
         btnSalvarAlt = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(0, 51, 153));
@@ -66,6 +87,7 @@ public class ProdutoEditar extends javax.swing.JFrame {
         btnSalvarAlt.setBackground(new java.awt.Color(0, 51, 153));
         btnSalvarAlt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalvarAlt.setText("Salvar Alterações");
+        btnSalvarAlt.addActionListener(this::btnSalvarAltActionPerformed);
 
         btnCancelar.setBackground(new java.awt.Color(153, 153, 153));
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -135,6 +157,36 @@ public class ProdutoEditar extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnSalvarAltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarAltActionPerformed
+
+        String nome = txtNome.getText().trim();
+        String precoTexto = txtPreco.getText().trim().replace(",", ".");
+        
+        if(!ValidadorUsuario.camposPreenchidos(nome, precoTexto)){
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try{
+            double preco = Double.parseDouble(precoTexto);
+            produto.setNome(nome);
+            produto.setPreco(preco);
+            repositorio.atualizar(produto);
+            JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso!");
+            
+            if(telaListar != null){
+                telaListar.carregarTabela();
+            }
+            dispose();
+        } catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Preço inválido.",
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch(PersistenceException e){
+            JOptionPane.showMessageDialog(this, "Não foi possivel atualizar: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSalvarAltActionPerformed
 
     /**
      * @param args the command line arguments

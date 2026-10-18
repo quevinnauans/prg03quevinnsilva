@@ -4,7 +4,14 @@
  */
 package br.com.ifba.sertaofrut.view;
 
+import br.com.ifba.sertaofrut.entity.Produto;
+import br.com.ifba.sertaofrut.exception.ProdutoNaoEncontradoException;
+import br.com.ifba.sertaofrut.repository.ProdutoRepository;
+import jakarta.persistence.PersistenceException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,8 +24,32 @@ public class ProdutoListar extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoListar
      */
+    private final ProdutoRepository repositorio = new ProdutoRepository();
+    private List<Produto> produtosExibidos = new ArrayList<>();
+    
     public ProdutoListar() {
         initComponents();
+        carregarTabela();
+    }
+    
+    // lista tudo ou filtra pelo texto da busca (JPQL no repostorio)
+    public void carregarTabela(){
+        String termo = txtBuscar.getText().trim();
+        
+        try{
+            produtosExibidos = termo.isEmpty()
+                    ? repositorio.listarTodos()
+                    : repositorio.buscarPorNome(termo);
+            DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
+            modelo.setRowCount(0);
+            
+            for(Produto p : produtosExibidos){
+                modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getPreco()});
+            }
+        } catch(PersistenceException e){
+            JOptionPane.showMessageDialog(this, "Não foi possivel carregar os produtos: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -71,6 +102,7 @@ public class ProdutoListar extends javax.swing.JFrame {
         btnBuscar.setBackground(new java.awt.Color(0, 51, 153));
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(this::btnBuscarActionPerformed);
 
         btnNovo.setBackground(new java.awt.Color(0, 153, 51));
         btnNovo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -139,17 +171,63 @@ public class ProdutoListar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        new ProdutoCadastro().setVisible(true);
+        new ProdutoCadastro(this).setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        new ProdutoEditar().setVisible(true);
+        int linha = tblProdutos.getSelectedRow();
+        
+        if(linha < 0){
+            JOptionPane.showMessageDialog(this, "Selecione um produto na tabela.",
+                    "Atenção", JOptionPane.WARNING_MESSAGE);
+        }
+        try{
+            Produto selecionado = produtosExibidos.get(linha);
+            Produto atual = repositorio.buscarPorId(selecionado.getId());
+            new ProdutoEditar(this, atual).setVisible(true);
+            
+        } catch(ProdutoNaoEncontradoException e){
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                    "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
+            carregarTabela();
+            
+        } catch (PersistenceException e){
+            JOptionPane.showMessageDialog(this, "Erro ao acessar o banco: " + e.getMessage(),
+                    "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja excluir esse produto?", 
-                "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+        int linha = tblProdutos.getSelectedRow();
+        
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(this, "Selecione um produto na tabela.",
+            "Atenção", JOptionPane.WARNING_MESSAGE);
+        return;
+        }
+        
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja excluir este produto?",
+        "Confirmar exclusão", JOptionPane.YES_NO_OPTION);
+        
+        if (resposta == JOptionPane.YES_OPTION) {
+        try {
+            repositorio.remover(produtosExibidos.get(linha).getId());
+            carregarTabela();
+            JOptionPane.showMessageDialog(this, "Produto removido com sucesso!");
+        } catch (ProdutoNaoEncontradoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
+            carregarTabela();
+        } catch (PersistenceException e) {
+            JOptionPane.showMessageDialog(this, "Erro ao acessar o banco: " + e.getMessage(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        carregarTabela();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     /**
      * @param args the command line arguments
