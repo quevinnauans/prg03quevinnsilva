@@ -30,6 +30,9 @@ public class Produto {
     
     private double preco;
     
+    @Column(length = 255)
+    private String descricao;
+    
     // Lista de movimentações de estoque desse produto
     @Transient
     private List<MovimentacaoEstoque> movimentacoes = new ArrayList<>();
@@ -72,6 +75,14 @@ public class Produto {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+    
+    public String getDescricao() {
+    return descricao;
+    }   
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     // Adiciona uma movimentação a lista, sem expor para alteração
