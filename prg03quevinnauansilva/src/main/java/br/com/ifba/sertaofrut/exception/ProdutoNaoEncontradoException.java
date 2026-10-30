@@ -5,6 +5,6 @@ package br.com.ifba.sertaofrut.exception;
 public class ProdutoNaoEncontradoException extends RuntimeException {
     
     public ProdutoNaoEncontradoException(Long id){
-        super("Produto com id " + id + "não foi encontrado.");
+        super("Produto com id " + id + " não foi encontrado.");
     }
 }
