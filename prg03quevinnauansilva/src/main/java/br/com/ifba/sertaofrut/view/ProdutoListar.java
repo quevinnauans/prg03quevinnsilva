@@ -4,10 +4,11 @@
  */
 package br.com.ifba.sertaofrut.view;
 
+import br.com.ifba.sertaofrut.dao.ProdutoDao;
+import br.com.ifba.sertaofrut.dao.ProdutoIDao;
 import br.com.ifba.sertaofrut.entity.Produto;
 import br.com.ifba.sertaofrut.exception.ProdutoNaoEncontradoException;
-import br.com.ifba.sertaofrut.repository.ProdutoRepository;
-import jakarta.persistence.PersistenceException;
+import br.com.ifba.infrastructure.exception.FalhaDePersistenciaException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,7 +25,7 @@ public class ProdutoListar extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoListar
      */
-    private final ProdutoRepository repositorio = new ProdutoRepository();
+    private final ProdutoIDao dao = new ProdutoDao();
     private List<Produto> produtosExibidos = new ArrayList<>();
     
     public ProdutoListar() {
@@ -38,15 +39,15 @@ public class ProdutoListar extends javax.swing.JFrame {
         
         try{
             produtosExibidos = termo.isEmpty()
-                    ? repositorio.listarTodos()
-                    : repositorio.buscarPorNome(termo);
+                    ? dao.findAll()
+                    : dao.findByNome(termo);
             DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
             modelo.setRowCount(0);
             
             for(Produto p : produtosExibidos){
                 modelo.addRow(new Object[]{p.getCodigo(), p.getNome(), p.getPreco()});
             }
-        } catch(PersistenceException e){
+        } catch(FalhaDePersistenciaException e){
             JOptionPane.showMessageDialog(this, "Não foi possivel carregar os produtos: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -183,7 +184,7 @@ public class ProdutoListar extends javax.swing.JFrame {
         }
         try{
             Produto selecionado = produtosExibidos.get(linha);
-            Produto atual = repositorio.buscarPorId(selecionado.getId());
+            Produto atual = dao.findById(selecionado.getId());
             new ProdutoEditar(this, atual).setVisible(true);
             
         } catch(ProdutoNaoEncontradoException e){
@@ -191,7 +192,7 @@ public class ProdutoListar extends javax.swing.JFrame {
                     "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
             carregarTabela();
             
-        } catch (PersistenceException e){
+        } catch (FalhaDePersistenciaException e){
             JOptionPane.showMessageDialog(this, "Erro ao acessar o banco: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -211,14 +212,15 @@ public class ProdutoListar extends javax.swing.JFrame {
         
         if (resposta == JOptionPane.YES_OPTION) {
         try {
-            repositorio.remover(produtosExibidos.get(linha).getId());
+            Produto produto = dao.findById(produtosExibidos.get(linha).getId());
+            dao.delete(produto);
             carregarTabela();
             JOptionPane.showMessageDialog(this, "Produto removido com sucesso!");
         } catch (ProdutoNaoEncontradoException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(),
                 "Produto não encontrado", JOptionPane.WARNING_MESSAGE);
             carregarTabela();
-        } catch (PersistenceException e) {
+        } catch (FalhaDePersistenciaException e) {
             JOptionPane.showMessageDialog(this, "Erro ao acessar o banco: " + e.getMessage(),
                 "Erro", JOptionPane.ERROR_MESSAGE);
             }

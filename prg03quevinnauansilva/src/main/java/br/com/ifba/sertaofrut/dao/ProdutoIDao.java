@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProdutoIDao extends GenericIDao<Produto> {
     
     // busca por parte do nome (JPQL com where)
-    List<Produto> findBynome(String termo);
+    List<Produto> findByNome(String termo);
     
     // o próximo código sequencial do produto
     int proximoCodigo();

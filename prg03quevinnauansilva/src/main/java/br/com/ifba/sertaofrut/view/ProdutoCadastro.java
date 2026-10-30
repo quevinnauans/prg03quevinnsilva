@@ -4,10 +4,11 @@
  */
 package br.com.ifba.sertaofrut.view;
 
+import br.com.ifba.infrastructure.exception.FalhaDePersistenciaException;
+import br.com.ifba.sertaofrut.dao.ProdutoDao;
+import br.com.ifba.sertaofrut.dao.ProdutoIDao;
 import br.com.ifba.sertaofrut.entity.Produto;
-import br.com.ifba.sertaofrut.repository.ProdutoRepository;
 import br.com.ifba.usuario.validar.ValidadorUsuario;
-import jakarta.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,7 +24,7 @@ public class ProdutoCadastro extends javax.swing.JFrame {
      */
     
     private ProdutoListar telaListar;
-    private final ProdutoRepository repositorio = new ProdutoRepository();
+    private final ProdutoIDao dao = new ProdutoDao();
     
     public ProdutoCadastro() {
         initComponents();
@@ -162,8 +163,8 @@ public class ProdutoCadastro extends javax.swing.JFrame {
             // converte o preço informado para double
             double preco = Double.parseDouble(precoTexto);
             // objeto produto com o próximo código disponivel
-             Produto produto = new Produto(repositorio.proximoCodigo(), nome, preco);
-                repositorio.cadastrar(produto);
+             Produto produto = new Produto(dao.proximoCodigo(), nome, preco);
+                dao.save(produto);
             JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
             
             // verifica se a tela de listagem foi informada e atualiza a tabela
@@ -176,7 +177,7 @@ public class ProdutoCadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Preço inválido.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
             // trata erros relacionados a persistencia dos dados no banco
-        } catch(PersistenceException e){
+        } catch(FalhaDePersistenciaException e){
             JOptionPane.showMessageDialog(this, "Não foi possível cadastrar: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
