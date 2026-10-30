@@ -1,6 +1,8 @@
 
 package br.com.ifba.sertaofrut.entity;
 
+import br.com.ifba.sertaofrut.enums.TipoMovimentacao;
+
 public class SaidaEstoque extends MovimentacaoEstoque{
     
     public SaidaEstoque(String data, int quantidade){

@@ -1,6 +1,8 @@
 
 package br.com.ifba.sertaofrut.entity;
 
+import br.com.ifba.sertaofrut.enums.StatusProducao;
+
 public class Producao {
     private String data;
     private String fruta;

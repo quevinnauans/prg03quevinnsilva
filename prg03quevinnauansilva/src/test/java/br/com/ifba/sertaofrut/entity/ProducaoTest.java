@@ -1,5 +1,6 @@
 package br.com.ifba.sertaofrut.entity;
 
+import br.com.ifba.sertaofrut.enums.StatusProducao;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
