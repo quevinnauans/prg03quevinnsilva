@@ -1,26 +1,21 @@
 
 package br.com.ifba.sertaofrut.entity;
 
+import br.com.ifba.infrastructure.entity.PersistenceEntity;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
 // entidade JPA: cada produto vai virar uma linha na tabela produto
 @Entity
 @Table(name = "produto")
-public class Produto {
+public class Produto extends PersistenceEntity {
     
     // chave primaria, gerada pelo banco
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     
     @Column(name = "codigo", nullable = false, unique = true)
     private int codigo;
@@ -49,10 +44,6 @@ public class Produto {
     
     // Getters e Setters
     
-    public Long getId(){
-        return id;
-    }
-
     public int getCodigo() {
         return codigo;
     }

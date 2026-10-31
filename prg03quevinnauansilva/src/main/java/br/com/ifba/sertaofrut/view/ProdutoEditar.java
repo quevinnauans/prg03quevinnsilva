@@ -4,10 +4,11 @@
  */
 package br.com.ifba.sertaofrut.view;
 
+import br.com.ifba.infrastructure.exception.FalhaDePersistenciaException;
+import br.com.ifba.sertaofrut.dao.ProdutoDao;
+import br.com.ifba.sertaofrut.dao.ProdutoIDao;
 import br.com.ifba.sertaofrut.entity.Produto;
-import br.com.ifba.sertaofrut.repository.ProdutoRepository;
 import br.com.ifba.usuario.validar.ValidadorUsuario;
-import jakarta.persistence.PersistenceException;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +25,7 @@ public class ProdutoEditar extends javax.swing.JFrame {
     
     private ProdutoListar telaListar;
     private Produto produto;
-    private final ProdutoRepository repositorio = new ProdutoRepository();
+    private final ProdutoIDao dao = new ProdutoDao();
     
     public ProdutoEditar() {
         initComponents();
@@ -172,7 +173,7 @@ public class ProdutoEditar extends javax.swing.JFrame {
             double preco = Double.parseDouble(precoTexto);
             produto.setNome(nome);
             produto.setPreco(preco);
-            repositorio.atualizar(produto);
+            dao.update(produto);
             JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso!");
             
             if(telaListar != null){
@@ -182,8 +183,8 @@ public class ProdutoEditar extends javax.swing.JFrame {
         } catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Preço inválido.",
                     "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch(PersistenceException e){
-            JOptionPane.showMessageDialog(this, "Não foi possivel atualizar: " + e.getMessage(),
+        } catch(FalhaDePersistenciaException e){
+            JOptionPane.showMessageDialog(this, "atualizar produto: " + e.getMessage(),
                     "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarAltActionPerformed
