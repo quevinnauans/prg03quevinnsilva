@@ -1,30 +1,24 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package br.com.ifba.prg03quevinnauansilva;
 
-import br.com.ifba.usuario.entity.Usuario;
-import java.util.ArrayList;
-import java.util.List;
+import br.com.ifba.sertaofrut.controller.ProdutoController;
+import br.com.ifba.sertaofrut.controller.ProdutoIController;
+import br.com.ifba.sertaofrut.dao.ProdutoDao;
+import br.com.ifba.sertaofrut.dao.ProdutoIDao;
+import br.com.ifba.sertaofrut.service.ProdutoIService;
+import br.com.ifba.sertaofrut.service.ProdutoService;
+import br.com.ifba.sertaofrut.view.ProdutoListar;
 
-/**
- *
- * @author Quevin Nauan
- */
 public class Prg03quevinnauansilva {
 
     public static void main(String[] args) {
-        
-        // Cria dois usuarios usando o mesmo login
-        Usuario u1 = new Usuario("Quevin", "11111111111", "quevin.silva", "senha123");
-        Usuario u2 = new Usuario("Quevin Silva", "22222222222", "quevin.silva", "outraSenha");
-        
-        // Cria uma lista e adiciona o primeiro usuario
-        List<Usuario> lista = new ArrayList<>();
-        lista.add(u1);
-        
-        // Verifica se a lista considera os dois usuarios iguais
-        System.out.println(lista.contains(u2));
-    }
+    
+    // Montagem das camadas    
+    java.awt.EventQueue.invokeLater(() -> {
+        ProdutoIDao dao = new ProdutoDao();
+        ProdutoIService service = new ProdutoService(dao);
+        ProdutoIController controller = new ProdutoController(service);
+        new ProdutoListar(controller).setVisible(true);
+    });
+}
 }
