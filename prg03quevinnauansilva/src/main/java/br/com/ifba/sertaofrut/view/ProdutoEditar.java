@@ -5,10 +5,9 @@
 package br.com.ifba.sertaofrut.view;
 
 import br.com.ifba.infrastructure.exception.FalhaDePersistenciaException;
-import br.com.ifba.sertaofrut.dao.ProdutoDao;
-import br.com.ifba.sertaofrut.dao.ProdutoIDao;
+import br.com.ifba.sertaofrut.controller.ProdutoIController;
 import br.com.ifba.sertaofrut.entity.Produto;
-import br.com.ifba.usuario.validar.ValidadorUsuario;
+import br.com.ifba.sertaofrut.exception.ProdutoInvalidoException;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,21 +24,18 @@ public class ProdutoEditar extends javax.swing.JFrame {
     
     private ProdutoListar telaListar;
     private Produto produto;
-    private final ProdutoIDao dao = new ProdutoDao();
+    private final ProdutoIController controller;
     
-    public ProdutoEditar() {
-        initComponents();
-    }
-    
-    // Construtor que recebe a tela de listagem e o produto que vai ser editado
-    public ProdutoEditar(ProdutoListar telaListar, Produto produto){
-        this();
+    public ProdutoEditar(ProdutoListar telaListar, ProdutoIController controller, Produto produto) {
         this.telaListar = telaListar;
+        this.controller = controller;
         this.produto = produto;
+        initComponents();
         txtCodigo.setText(String.valueOf(produto.getCodigo()));
         txtNome.setText(produto.getNome());
         txtPreco.setText(String.valueOf(produto.getPreco()));
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,55 +160,29 @@ public class ProdutoEditar extends javax.swing.JFrame {
         String nome = txtNome.getText().trim();
         String precoTexto = txtPreco.getText().trim().replace(",", ".");
         
-        if(!ValidadorUsuario.camposPreenchidos(nome, precoTexto)){
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos.",
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
         try{
             double preco = Double.parseDouble(precoTexto);
             produto.setNome(nome);
             produto.setPreco(preco);
-            dao.update(produto);
+            controller.update(produto);
             JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso!");
-            
-            if(telaListar != null){
-                telaListar.carregarTabela();
-            }
+            telaListar.carregarTabela();
             dispose();
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Preço inválido.",
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-        } catch(FalhaDePersistenciaException e){
-            JOptionPane.showMessageDialog(this, "atualizar produto: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+                "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (ProdutoInvalidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                "Dados inválidos", JOptionPane.WARNING_MESSAGE);
+        } catch (FalhaDePersistenciaException e) {
+            JOptionPane.showMessageDialog(this, "Não foi possível atualizar: " + e.getMessage(),
+                "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSalvarAltActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ProdutoEditar().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;

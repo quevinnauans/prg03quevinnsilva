@@ -5,10 +5,9 @@
 package br.com.ifba.sertaofrut.view;
 
 import br.com.ifba.infrastructure.exception.FalhaDePersistenciaException;
-import br.com.ifba.sertaofrut.dao.ProdutoDao;
-import br.com.ifba.sertaofrut.dao.ProdutoIDao;
+import br.com.ifba.sertaofrut.controller.ProdutoIController;
 import br.com.ifba.sertaofrut.entity.Produto;
-import br.com.ifba.usuario.validar.ValidadorUsuario;
+import br.com.ifba.sertaofrut.exception.ProdutoInvalidoException;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,17 +23,14 @@ public class ProdutoCadastro extends javax.swing.JFrame {
      */
     
     private ProdutoListar telaListar;
-    private final ProdutoIDao dao = new ProdutoDao();
+    private final ProdutoIController controller;
     
-    public ProdutoCadastro() {
+    public ProdutoCadastro(ProdutoListar telaListar, ProdutoIController controller) {
+        this.telaListar = telaListar;
+        this.controller = controller;
         initComponents();
     }
     
-    // construtor que recebe a tela de listagem
-    public ProdutoCadastro(ProdutoListar telaListar){
-        this();
-        this.telaListar = telaListar;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -147,66 +143,36 @@ public class ProdutoCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
-        // obtei o nome digitado
+        // btnSalvar
         String nome = txtNome.getText().trim();
-        // obtei o preço digitado
         String precoTexto = txtPreco.getText().trim().replace(",", ".");
-        
-        // verifica se todos os campos obrigatórios foram preenchidos
-        if(!ValidadorUsuario.camposPreenchidos(nome, precoTexto)){
-            JOptionPane.showMessageDialog(this, "Preencha todos os campos.",
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        try{
-            // converte o preço informado para double
-            double preco = Double.parseDouble(precoTexto);
-            // objeto produto com o próximo código disponivel
-             Produto produto = new Produto(dao.proximoCodigo(), nome, preco);
-                dao.save(produto);
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
             
-            // verifica se a tela de listagem foi informada e atualiza a tabela
-            if(telaListar != null){
-                telaListar.carregarTabela();
-            }
+        try {
+            double preco = Double.parseDouble(precoTexto);
+            Produto produto = new Produto();
+            produto.setNome(nome);
+            produto.setPreco(preco);
+            controller.save(produto);
+                
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+            telaListar.carregarTabela();
             dispose();
-            // trata erros quando o preço não é um número valido
-        } catch(NumberFormatException e){
+            
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Preço inválido.",
-                    "Erro", JOptionPane.ERROR_MESSAGE);
-            // trata erros relacionados a persistencia dos dados no banco
-        } catch(FalhaDePersistenciaException e){
+                "Erro", JOptionPane.ERROR_MESSAGE);
+        } catch (ProdutoInvalidoException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),
+                "Dados inválidos", JOptionPane.WARNING_MESSAGE);
+        } catch (FalhaDePersistenciaException e) {
             JOptionPane.showMessageDialog(this, "Não foi possível cadastrar: " + e.getMessage(),
-                    "Erro", JOptionPane.ERROR_MESSAGE);
+                "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_bntSalvarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ProdutoCadastro().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntSalvar;

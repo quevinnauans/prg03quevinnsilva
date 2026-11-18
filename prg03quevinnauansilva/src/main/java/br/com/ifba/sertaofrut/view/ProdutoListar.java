@@ -4,11 +4,10 @@
  */
 package br.com.ifba.sertaofrut.view;
 
-import br.com.ifba.sertaofrut.dao.ProdutoDao;
-import br.com.ifba.sertaofrut.dao.ProdutoIDao;
 import br.com.ifba.sertaofrut.entity.Produto;
 import br.com.ifba.sertaofrut.exception.ProdutoNaoEncontradoException;
 import br.com.ifba.infrastructure.exception.FalhaDePersistenciaException;
+import br.com.ifba.sertaofrut.controller.ProdutoIController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,10 +24,11 @@ public class ProdutoListar extends javax.swing.JFrame {
     /**
      * Creates new form ProdutoListar
      */
-    private final ProdutoIDao dao = new ProdutoDao();
+    private final ProdutoIController controller;
     private List<Produto> produtosExibidos = new ArrayList<>();
     
-    public ProdutoListar() {
+    public ProdutoListar(ProdutoIController controller) {
+        this.controller = controller;
         initComponents();
         carregarTabela();
     }
@@ -39,8 +39,8 @@ public class ProdutoListar extends javax.swing.JFrame {
         
         try{
             produtosExibidos = termo.isEmpty()
-                    ? dao.findAll()
-                    : dao.findByNome(termo);
+                    ? controller.findAll()
+                    : controller.findByNome(termo);
             DefaultTableModel modelo = (DefaultTableModel) tblProdutos.getModel();
             modelo.setRowCount(0);
             
@@ -172,7 +172,7 @@ public class ProdutoListar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        new ProdutoCadastro(this).setVisible(true);
+        new ProdutoCadastro(this, controller).setVisible(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -184,8 +184,8 @@ public class ProdutoListar extends javax.swing.JFrame {
         }
         try{
             Produto selecionado = produtosExibidos.get(linha);
-            Produto atual = dao.findById(selecionado.getId());
-            new ProdutoEditar(this, atual).setVisible(true);
+            Produto atual = controller.findById(selecionado.getId());
+            new ProdutoEditar(this, controller, atual).setVisible(true);
             
         } catch(ProdutoNaoEncontradoException e){
             JOptionPane.showMessageDialog(this, e.getMessage(),
@@ -212,8 +212,8 @@ public class ProdutoListar extends javax.swing.JFrame {
         
         if (resposta == JOptionPane.YES_OPTION) {
         try {
-            Produto produto = dao.findById(produtosExibidos.get(linha).getId());
-            dao.delete(produto);
+            Produto produto = controller.findById(produtosExibidos.get(linha).getId());
+            controller.delete(produto);
             carregarTabela();
             JOptionPane.showMessageDialog(this, "Produto removido com sucesso!");
         } catch (ProdutoNaoEncontradoException e) {
@@ -234,27 +234,6 @@ public class ProdutoListar extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ProdutoListar().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
