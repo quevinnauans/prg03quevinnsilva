@@ -4,10 +4,16 @@
  */
 package br.com.ifba.usuario.validar;
 
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidadorUsuarioTest {
+    
+    @Test
+    public void contemPalavraProibida_comListaPropria_deveUsarAListaInformada() {
+    assertTrue(ValidadorUsuario.contemPalavraProibida("minhaloja", List.of("loja")));
+    }
 
     @Test
     public void cpfValidoComCpfCorretoDeveRetornarTrue() {
