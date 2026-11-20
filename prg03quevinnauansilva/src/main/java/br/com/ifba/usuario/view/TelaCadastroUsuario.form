@@ -48,7 +48,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblTelaCadastro" min="-2" pref="137" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtDataNasc" pref="241" max="32767" attributes="0"/>
+                              <Component id="txtDataNascimento" pref="241" max="32767" attributes="0"/>
                               <Component id="txtTelefone" alignment="0" pref="241" max="32767" attributes="0"/>
                               <Component id="txtLogin" alignment="0" pref="241" max="32767" attributes="0"/>
                               <Component id="txtNome" alignment="0" max="32767" attributes="0"/>
@@ -56,7 +56,7 @@
                               <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                               <Component id="cobGenero" alignment="0" max="32767" attributes="0"/>
                               <Component id="txtSenha" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtConfSenha" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtConfirmarSenha" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -87,7 +87,7 @@
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtDataNasc" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtDataNascimento" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblDataNasc" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
@@ -113,7 +113,7 @@
               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblConfSenha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtConfSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtConfirmarSenha" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -187,7 +187,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtDataNasc">
+    <Component class="javax.swing.JTextField" name="txtDataNascimento">
     </Component>
     <Component class="javax.swing.JTextField" name="txtTelefone">
     </Component>
@@ -216,7 +216,7 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="txtSenha">
     </Component>
-    <Component class="javax.swing.JPasswordField" name="txtConfSenha">
+    <Component class="javax.swing.JPasswordField" name="txtConfirmarSenha">
     </Component>
     <Component class="javax.swing.JLabel" name="lblTelaCadastro">
       <Properties>

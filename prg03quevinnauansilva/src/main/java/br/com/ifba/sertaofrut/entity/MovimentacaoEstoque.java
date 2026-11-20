@@ -8,7 +8,7 @@ import br.com.ifba.sertaofrut.enums.TipoMovimentacao;
 // tem em comum
 public abstract class MovimentacaoEstoque {
     // Atributos
-    private String data;
+    private String dataMovimentacao;
     private int quantidade;
     
     public MovimentacaoEstoque(String data, int quantidade){
@@ -16,7 +16,7 @@ public abstract class MovimentacaoEstoque {
         if(quantidade <= 0){
             throw new IllegalArgumentException("A quantidade informada é inválida!");
         }
-        this.data = data;
+        this.dataMovimentacao = data;
         this.quantidade = quantidade;
         
     }
@@ -24,11 +24,11 @@ public abstract class MovimentacaoEstoque {
     // getters e setters
     
     public String getData() {
-        return data;
+        return dataMovimentacao;
     }
 
     public void setData(String data) {
-        this.data = data;
+        this.dataMovimentacao = data;
     }
 
     public int getQuantidade() {
