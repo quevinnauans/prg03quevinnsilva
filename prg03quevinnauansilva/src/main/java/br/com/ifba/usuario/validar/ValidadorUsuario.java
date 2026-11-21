@@ -21,7 +21,6 @@ public static boolean contemPalavraProibida(String texto, List<String> proibidas
     }
     return false;
 }
-    // Verifica se o CPF tem a quantidade de digitos correta
     public static boolean cpfContemOnzeDigitos(String cpf){
         if(cpf == null){
             return false;
@@ -30,7 +29,6 @@ public static boolean contemPalavraProibida(String texto, List<String> proibidas
         return cpfLimpo.length() == 11;
     }
     
-    // Verifica se a senha tem o tamanho minimo (8 caracteres)
     public static boolean senhaForte(String senha){
         if(senha == null){
             return false;
@@ -38,7 +36,6 @@ public static boolean contemPalavraProibida(String texto, List<String> proibidas
         return senha.length() >= 8;
     }
     
-    // Verifica se todos os campos foram preechidos
     public static boolean camposPreenchidos(String... campos){
         for(String campo : campos){
             if(campo == null || campo.trim().isEmpty()){

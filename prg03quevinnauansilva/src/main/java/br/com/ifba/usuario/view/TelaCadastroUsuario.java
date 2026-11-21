@@ -181,7 +181,6 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         String senha = new String(txtSenha.getPassword());
         String confirmarSenha = new String(txtConfirmarSenha.getPassword());
         
-        // Verifica se ficou algum campo vazio
             if(!ValidadorUsuario.camposPreenchidos(nome, cpf, dataNascimento, telefone, email,
                     login, senha, confirmarSenha)){
                 
@@ -204,18 +203,16 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Login contém palavra proibida.", 
                         "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            // Ocorreu de forma correta
+           
             else{
-            // Instancia o construtor com parametros
+            
             Usuario usuario = new Usuario(nome, cpf, login, senha);
     
-            // Preenche os outros atributos
             usuario.setGenero((String) cobGenero.getSelectedItem());
             usuario.setDataNascimento(dataNascimento);
             usuario.setTelefone(telefone);
             usuario.setEmail(email);
     
-            // Tenta cadastrar no repositorio
             repositorio.cadastrar(usuario);
             JOptionPane.showMessageDialog(this, "Usuario " + usuario.getNome());
     }

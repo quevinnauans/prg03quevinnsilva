@@ -7,10 +7,10 @@ public class Producao {
     private String dataProducao;
     private String fruta;
     private int quant_produzida;
-    private Produto produto; // objeto como atributo
+    private Produto produto; 
     private StatusProducao status;
     
-    //Construtor vazio e toda produção nasce com status EM_ANDAMENTO
+    // Toda producao nasce já com o status EM_ANDAMENTO
     public Producao(){
         this.status = StatusProducao.EM_ANDAMENTO;
     }
@@ -20,7 +20,7 @@ public class Producao {
         this.fruta = fruta;
         this.quant_produzida = quant_produzida;
         this.produto = produto;
-        this.status = StatusProducao.EM_ANDAMENTO; // Status padrão ao criar
+        this.status = StatusProducao.EM_ANDAMENTO; 
     }
 
     public String getData() {

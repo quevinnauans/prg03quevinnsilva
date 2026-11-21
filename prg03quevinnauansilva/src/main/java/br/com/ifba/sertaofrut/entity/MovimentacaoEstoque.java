@@ -3,11 +3,10 @@ package br.com.ifba.sertaofrut.entity;
 
 import br.com.ifba.sertaofrut.enums.TipoMovimentacao;
 
-// Classe abstrata: define o que toda a movimentação de estoque
+// Classe abstrata: define o que toda a movimentação de estoque terá em comum
 
-// tem em comum
 public abstract class MovimentacaoEstoque {
-    // Atributos
+    
     private String dataMovimentacao;
     private int quantidade;
     
@@ -21,8 +20,6 @@ public abstract class MovimentacaoEstoque {
         
     }
 
-    // getters e setters
-    
     public String getData() {
         return dataMovimentacao;
     }

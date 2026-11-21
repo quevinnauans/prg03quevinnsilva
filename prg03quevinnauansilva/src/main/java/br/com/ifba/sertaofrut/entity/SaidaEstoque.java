@@ -11,9 +11,9 @@ public class SaidaEstoque extends MovimentacaoEstoque{
     
      @Override
     public int aplicarNoEstoque(int estoqueAtual) {
-        // verifica se existe estoque suficiente para realizar a saída
+        
         if(getQuantidade() > estoqueAtual){
-            // Não permite retirar mais produtos do que existe no estoque
+            // Regra de negócio: Não permite retirar mais produtos do que existe no estoque
             throw new IllegalArgumentException("Estoque insuficiente!");
         }
         return estoqueAtual - getQuantidade();

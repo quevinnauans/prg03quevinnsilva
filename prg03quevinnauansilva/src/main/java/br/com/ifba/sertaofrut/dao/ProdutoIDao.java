@@ -10,6 +10,6 @@ public interface ProdutoIDao extends GenericIDao<Produto> {
     // busca por parte do nome (JPQL com where)
     List<Produto> findByNome(String termo);
     
-    // o próximo código sequencial do produto
+    // Regra: o próximo código do produto é sequencial
     int proximoCodigo();
 }

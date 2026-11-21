@@ -32,7 +32,6 @@ public class Produto extends PersistenceEntity {
     @Transient
     private List<MovimentacaoEstoque> movimentacoes = new ArrayList<>();
     
-    // Construtor vazio
     public Produto(){
         
     }
@@ -41,8 +40,6 @@ public class Produto extends PersistenceEntity {
         this.nome = nome;
         this.preco = preco;
     }
-    
-    // Getters e Setters
     
     public int getCodigo() {
         return codigo;
