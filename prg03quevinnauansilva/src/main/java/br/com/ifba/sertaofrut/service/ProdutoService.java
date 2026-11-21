@@ -62,7 +62,7 @@ public class ProdutoService implements ProdutoIService {
         }
     }
     
-    // regra de negócio: Não pode ter dois produtos com o mesmo nome
+    // regra de negócio: Não pode ter dois produtos com o mesmo nome no sistema
     private void exigirNomeUnico(Produto produto){
         String nome = produto.getNome().trim();
         

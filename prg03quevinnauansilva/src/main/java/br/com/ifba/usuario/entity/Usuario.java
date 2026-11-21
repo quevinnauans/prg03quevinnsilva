@@ -6,8 +6,6 @@ package br.com.ifba.usuario.entity;
 import br.com.ifba.usuario.interfaces.Autenticavel;
 
 public class Usuario implements Autenticavel {
-    // Definindo atributos
-    
     private String nome;
     private String cpf;
     private String genero;
@@ -16,21 +14,17 @@ public class Usuario implements Autenticavel {
     private String email;
     private String login;
     private String senha;
-    
-    // Construtor vazio
+   
     public Usuario(){
         
     }
-    // Construtor com os atributos principais 
         public Usuario(String nome, String cpf, String login, String senha){
             this.nome = nome;
             this.cpf = cpf;
             this.login = login;
             this.senha = senha;
         }
-        
-    // getters e setters
-
+   
     public String getNome() {
         return nome;
     }

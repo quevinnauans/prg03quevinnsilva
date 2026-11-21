@@ -20,7 +20,7 @@ public class GenericDao<Entity extends PersistenceEntity> implements GenericIDao
         return JPAUtil.getEntityManager();
     }
     
-    // método save, responsável por salvar uma entidade no BD
+    // Responsável por salvar uma entidade no BD
     @Override
     public Entity save(Entity entity){
         // inicializa o EntityManager

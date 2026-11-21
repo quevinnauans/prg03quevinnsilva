@@ -39,7 +39,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         lblConfSenha = new javax.swing.JLabel();
         btnCadastrar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        txtDataNasc = new javax.swing.JTextField();
+        txtDataNascimento = new javax.swing.JTextField();
         txtTelefone = new javax.swing.JTextField();
         txtLogin = new javax.swing.JTextField();
         txtNome = new javax.swing.JTextField();
@@ -47,7 +47,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         txtEmail = new javax.swing.JTextField();
         cobGenero = new javax.swing.JComboBox<>();
         txtSenha = new javax.swing.JPasswordField();
-        txtConfSenha = new javax.swing.JPasswordField();
+        txtConfirmarSenha = new javax.swing.JPasswordField();
         lblTelaCadastro = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,7 +108,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTelaCadastro, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtDataNasc, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                                .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                                 .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                                 .addComponent(txtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                                 .addComponent(txtNome)
@@ -116,7 +116,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                                 .addComponent(txtEmail)
                                 .addComponent(cobGenero, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtSenha)
-                                .addComponent(txtConfSenha)))))
+                                .addComponent(txtConfirmarSenha)))))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -138,7 +138,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                     .addComponent(lblGenero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -159,7 +159,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -174,22 +174,21 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
         // Pega os dados digitados
         String nome = txtNome.getText();
         String cpf = txtCpf.getText();
-        String dataNasc = txtDataNasc.getText();
+        String dataNascimento = txtDataNascimento.getText();
         String telefone = txtTelefone.getText();
         String email = txtEmail.getText();
         String login = txtLogin.getText();
         String senha = new String(txtSenha.getPassword());
-        String confSenha = new String(txtConfSenha.getPassword());
+        String confirmarSenha = new String(txtConfirmarSenha.getPassword());
         
-        // Verifica se ficou algum campo vazio
-            if(!ValidadorUsuario.camposPreenchidos(nome, cpf, dataNasc, telefone, email,
-                    login, senha, confSenha)){
+            if(!ValidadorUsuario.camposPreenchidos(nome, cpf, dataNascimento, telefone, email,
+                    login, senha, confirmarSenha)){
                 
                 JOptionPane.showMessageDialog(this, "Preencha todos os campos.", "Erro",
                         JOptionPane.ERROR_MESSAGE);
             }
             // Verifica se as senhas informadas nos campos coincidem
-            else if(!senha.equals(confSenha)){
+            else if(!senha.equals(confirmarSenha)){
                 JOptionPane.showMessageDialog(this, "As senhas não coincidem.", "Erro", 
                         JOptionPane.ERROR_MESSAGE);
             }
@@ -204,18 +203,16 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Login contém palavra proibida.", 
                         "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            // Ocorreu de forma correta
+           
             else{
-            // Instancia o construtor com parametros
+            
             Usuario usuario = new Usuario(nome, cpf, login, senha);
     
-            // Preenche os outros atributos
             usuario.setGenero((String) cobGenero.getSelectedItem());
-            usuario.setDataNascimento(dataNasc);
+            usuario.setDataNascimento(dataNascimento);
             usuario.setTelefone(telefone);
             usuario.setEmail(email);
     
-            // Tenta cadastrar no repositorio
             repositorio.cadastrar(usuario);
             JOptionPane.showMessageDialog(this, "Usuario " + usuario.getNome());
     }
@@ -267,9 +264,9 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblSenha;
     private javax.swing.JLabel lblTelaCadastro;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JPasswordField txtConfSenha;
+    private javax.swing.JPasswordField txtConfirmarSenha;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtDataNasc;
+    private javax.swing.JTextField txtDataNascimento;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;

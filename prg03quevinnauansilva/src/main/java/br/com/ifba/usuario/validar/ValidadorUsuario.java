@@ -1,27 +1,26 @@
 
 package br.com.ifba.usuario.validar;
 
-import java.util.Locale;
+import java.util.List;
 
 public class ValidadorUsuario {
     
-    // Verifica se o texto que foi informado contem alguma palavra proibida
-    public static boolean contemPalavraProibida(String text){
-    // Palavras proibidas
-    String[] palavras_proibida = {"admin", "teste", "root", "senha123"};
+    private static final List<String> PALAVRAS_PROIBIDAS_PADRAO =
+        List.of("admin", "teste", "root", "senha123", "1234", "senha");
 
-    // Deixa o texto em minúsculo para a comparação
-    String textoNormalizado = text.toLowerCase(Locale.ROOT);
+public static boolean contemPalavraProibida(String texto) {
+    return contemPalavraProibida(texto, PALAVRAS_PROIBIDAS_PADRAO);
+}
 
-    // Percorre o array verificando o texto
-    for(String palavra : palavras_proibida){
-        if(textoNormalizado.contains(palavra)){
+// quem precisar de outra lista usa esta versao, sem editar o metodo
+public static boolean contemPalavraProibida(String texto, List<String> proibidas) {
+    for (String palavra : proibidas) {
+        if (texto.toLowerCase().contains(palavra)) {
             return true;
         }
     }
     return false;
 }
-    // Verifica se o CPF tem a quantidade de digitos correta
     public static boolean cpfContemOnzeDigitos(String cpf){
         if(cpf == null){
             return false;
@@ -30,7 +29,6 @@ public class ValidadorUsuario {
         return cpfLimpo.length() == 11;
     }
     
-    // Verifica se a senha tem o tamanho minimo (8 caracteres)
     public static boolean senhaForte(String senha){
         if(senha == null){
             return false;
@@ -38,7 +36,6 @@ public class ValidadorUsuario {
         return senha.length() >= 8;
     }
     
-    // Verifica se todos os campos foram preechidos
     public static boolean camposPreenchidos(String... campos){
         for(String campo : campos){
             if(campo == null || campo.trim().isEmpty()){

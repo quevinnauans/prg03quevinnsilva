@@ -143,8 +143,9 @@ public class ProdutoCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void bntSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntSalvarActionPerformed
-        // btnSalvar
+        
         String nome = txtNome.getText().trim();
+        // Aceita virgula porque o usuario digita o preco no padrao
         String precoTexto = txtPreco.getText().trim().replace(",", ".");
             
         try {

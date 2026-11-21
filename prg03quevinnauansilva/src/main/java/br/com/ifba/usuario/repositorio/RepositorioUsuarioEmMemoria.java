@@ -14,7 +14,6 @@ public class RepositorioUsuarioEmMemoria {
     private final List<Usuario> usuarios = new ArrayList<>();
     private final Map<String, Usuario> porLogin = new HashMap<>();
     
-    // Cadastra um usuários no repositorio
     public void cadastrar(Usuario usuario){
         
         usuarios.add(usuario);
@@ -26,7 +25,6 @@ public class RepositorioUsuarioEmMemoria {
         return Collections.unmodifiableList(usuarios);
     }
     
-    // busca percorrendo a lista
     public Usuario buscarPorLoginUsandoFor(String login){
         for(Usuario usuario : usuarios){
             if(usuario.getLogin().equals(login)){
