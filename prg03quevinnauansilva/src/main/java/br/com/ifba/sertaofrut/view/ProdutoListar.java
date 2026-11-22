@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author Quevin Nauan
  */
+@Component
 public class ProdutoListar extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ProdutoListar.class.getName());

@@ -5,8 +5,10 @@ package br.com.ifba.sertaofrut.controller;
 import br.com.ifba.sertaofrut.entity.Produto;
 import br.com.ifba.sertaofrut.service.ProdutoIService;
 import java.util.List;
+import org.springframework.stereotype.Controller;
 
 // recebe o pedido da tela e repassa ao service
+@Controller
 public class ProdutoController implements ProdutoIController {
     
     private final ProdutoIService service;

@@ -14,10 +14,11 @@ public class JPAUtil {
     }
 
     public static synchronized EntityManager getEntityManager() {
-    if (fabrica == null) {
-        MigrationRunner.executar();
-        fabrica = Persistence.createEntityManagerFactory(UNIDADE);
-    }
-    return fabrica.createEntityManager();
+        if (fabrica == null) {
+            ConfiguracaoBanco configuracao = new ConfiguracaoBanco();
+            MigrationRunner.executar(configuracao);
+            fabrica = Persistence.createEntityManagerFactory(UNIDADE, configuracao.comoPropriedadesJpa());
+        }
+        return fabrica.createEntityManager();
     }
 }

@@ -6,7 +6,9 @@ import br.com.ifba.sertaofrut.entity.Produto;
 import br.com.ifba.sertaofrut.exception.ProdutoInvalidoException;
 import java.util.List;
 import java.util.Objects;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProdutoService implements ProdutoIService {
     
     private final ProdutoIDao dao;

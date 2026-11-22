@@ -8,10 +8,15 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>26</maven.compiler.release>
-        <exec.mainClass>br.com.ifba.prg03quevinnauansilva.Prg03quevinnauansilva</exec.mainClass>
+        <exec.mainClass>br.com.ifba.prg03quevinnauansilva.ProjetoApplication</exec.mainClass>
     </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>4.1.0</version>
+            </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

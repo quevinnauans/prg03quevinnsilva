@@ -1,0 +1,5 @@
+# conexao com o banco (PostgreSQL)
+spring.datasource.url=jdbc:postgresql://localhost:5432/sertaofrut
+spring.datasource.username=
+spring.datasource.password=
+spring.datasource.driver-class-name=org.postgresql.Driver
