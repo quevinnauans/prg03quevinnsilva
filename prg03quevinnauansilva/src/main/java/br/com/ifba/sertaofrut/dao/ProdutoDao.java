@@ -7,7 +7,9 @@ import br.com.ifba.sertaofrut.entity.Produto;
 import br.com.ifba.sertaofrut.exception.ProdutoNaoEncontradoException;
 import jakarta.persistence.EntityManager;
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class ProdutoDao extends GenericDao<Produto> implements ProdutoIDao {
     
     public ProdutoDao(){
