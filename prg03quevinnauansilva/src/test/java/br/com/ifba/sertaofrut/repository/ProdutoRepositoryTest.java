@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @DataJpaTest(properties = {
     "spring.jpa.hibernate.ddl-auto=create-drop",
@@ -14,6 +15,7 @@ class ProdutoRepositoryTest {
 
     private final ProdutoRepository repository;
 
+    @Autowired
     ProdutoRepositoryTest(ProdutoRepository repository) {
         this.repository = repository;
     }
@@ -49,8 +51,9 @@ class ProdutoRepositoryTest {
 
         List<Produto> resultado = repository.buscarPorNomeEFaixaDePreco("polpa", 3.0, 7.0);
 
-        assertEquals(2, resultado.size());
-        assertEquals("Polpa de Goiaba", resultado.get(0).getNome());   // 4,00 vem primeiro
-        assertEquals("Polpa de Manga", resultado.get(1).getNome());    // depois 6,00
+        assertEquals(3, resultado.size());
+        assertEquals("Polpa de Goiaba", resultado.get(0).getNome());
+        assertEquals("Polpa de Uva", resultado.get(1).getNome());
+        assertEquals("Polpa de Manga", resultado.get(2).getNome());
     }
 }

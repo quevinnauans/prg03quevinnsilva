@@ -9,7 +9,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
-        <exec.mainClass>br.com.ifba.prg03quevinnauansilva.ProjetoApplication</exec.mainClass>
+        <exec.mainClass>br.com.ifba.ProjetoApplication</exec.mainClass>
     </properties>
 
     <dependencyManagement>

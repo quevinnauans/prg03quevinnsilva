@@ -1,4 +1,4 @@
-package br.com.ifba.prg03quevinnauansilva;
+package br.com.ifba;
 
 import br.com.ifba.sertaofrut.view.ProdutoListar;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
