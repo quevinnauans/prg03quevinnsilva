@@ -13,7 +13,7 @@ public class ProdutoServiceTest {
     @BeforeEach
     public void preparar() {
         
-        service = new ProdutoService(new FakeProdutoDao());
+        service = new ProdutoService(new FakeProdutoRepository().criar());
     }
 
     private Produto produto(String nome, double preco) {
