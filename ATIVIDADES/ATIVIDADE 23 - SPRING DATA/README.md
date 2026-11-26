@@ -16,3 +16,4 @@ Saida de `git diff --stat HEAD~1 HEAD` do commit que apagou as classes sem dono:
  10 files changed, 526 deletions(-)
 
 Total de linhas removidas: 526
+Arquivos: 10
